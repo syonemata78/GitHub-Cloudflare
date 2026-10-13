@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub → Cloudflare のしくみ</title>
+  <meta name="description" content="GitHubとCloudflareの関係を、初心者向けにやさしく図で説明するLPサイトです。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="site-logo">GitHub → Cloudflare</div>
+      <nav class="site-nav" aria-label="ページ内ナビゲーション">
+        <a href="#overview">全体像</a>
+        <a href="#flow">流れ</a>
+        <a href="#roles">役割</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow">初心者向け / やさしく解説</p>
+        <h1>GitHubに入れたコードが<br>Cloudflareでサイトになる</h1>
+        <p class="hero-text">
+          「GitHubって何？」「Cloudflareって何？」という人でもわかるように、<br>
+          サイト公開の流れを、できるだけかんたんな言葉で整理しました。
+        </p>
+        <a class="btn btn-primary" href="#overview">まず全体像を見る</a>
+      </div>
+    </section>
+
+    <section id="overview" class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">まずはこれだけ</p>
+          <h2>全体像</h2>
+          <p>
+            ざっくり言うと、<strong>GitHubはサイトのデータを置く場所</strong>、
+            <strong>Cloudflareはそのデータを見られる形で公開する場所</strong>です。
+          </p>
+        </div>
+
+        <div class="big-diagram" aria-label="サイト公開までの流れ">
+          <div class="diagram-box">
+            <span class="diagram-step">1</span>
+            <div class="diagram-icon">✏️</div>
+            <h3>あなた</h3>
+            <p>HTML・CSS・画像を作る</p>
+          </div>
+
+          <div class="diagram-arrow">→</div>
+
+          <div class="diagram-box">
+            <span class="diagram-step">2</span>
+            <div class="diagram-icon">📦</div>
+            <h3>GitHub</h3>
+            <p>ファイルを保存する<br>“保管庫”</p>
+          </div>
+
+          <div class="diagram-arrow">→</div>
+
+          <div class="diagram-box">
+            <span class="diagram-step">3</span>
+            <div class="diagram-icon">☁️</div>
+            <h3>Cloudflare Pages</h3>
+            <p>GitHubを読み取り<br>公開サイトを作る</p>
+          </div>
+
+          <div class="diagram-arrow">→</div>
+
+          <div class="diagram-box">
+            <span class="diagram-step">4</span>
+            <div class="diagram-icon">🌐</div>
+            <h3>見る人</h3>
+            <p>ブラウザでサイトを見る</p>
+          </div>
+        </div>
+
+        <div class="point-box">
+          <p><strong>ポイント：</strong> あなたは主に <strong>GitHubにファイルを入れる</strong> だけ。するとCloudflareがその内容を読み取って、自動でサイトを公開してくれます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="flow" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">実際の動き</p>
+          <h2>修正したら、どう反映される？</h2>
+          <p>「修正したら何が起きるのか」を順番に見ると、こんな流れです。</p>
+        </div>
+
+        <div class="flow-list">
+          <article class="flow-card">
+            <div class="flow-num">01</div>
+            <div class="flow-body">
+              <h3>ファイルを直す</h3>
+              <p>たとえば <code>index.html</code> や <code>style.css</code> を修正します。画像を差し替えることもあります。</p>
+            </div>
+          </article>
+
+          <article class="flow-card">
+            <div class="flow-num">02</div>
+            <div class="flow-body">
+              <h3>GitHubに保存する</h3>
+              <p>GitHubで「Commit」すると、<strong>その修正内容を履歴つきで保存</strong>できます。「上書き保存＋履歴管理」と考えるとわかりやすいです。</p>
+            </div>
+          </article>
+
+          <article class="flow-card">
+            <div class="flow-num">03</div>
+            <div class="flow-body">
+              <h3>Cloudflareが自動で見つける</h3>
+              <p>GitHubの更新をCloudflareが検知して、<strong>新しい内容でサイトを作り直し</strong>ます。</p>
+            </div>
+          </article>
+
+          <article class="flow-card">
+            <div class="flow-num">04</div>
+            <div class="flow-body">
+              <h3>公開サイトに反映される</h3>
+              <p>少し待って公開URLを開くと、修正後のデザインが見られます。</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="mini-diagram">
+          <div class="mini-box">修正する</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-box">GitHubに保存</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-box">Cloudflareが更新</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-box">サイトに反映</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roles" class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">役割の違い</p>
+          <h2>GitHubとCloudflareは何が違う？</h2>
+        </div>
+
+        <div class="compare-grid">
+          <article class="compare-card github-card">
+            <div class="compare-badge">GitHub</div>
+            <h3>サイトの「保管庫」</h3>
+            <ul>
+              <li>HTMLやCSSなどのファイルを置く場所</li>
+              <li>修正の履歴を残せる</li>
+              <li>「どこを直したか」がわかる</li>
+              <li>共同作業にも向いている</li>
+            </ul>
+            <p class="compare-note">たとえるなら、<strong>設計図や素材をしまう棚</strong>です。</p>
+          </article>
+
+          <article class="compare-card cloudflare-card">
+            <div class="compare-badge">Cloudflare Pages</div>
+            <h3>サイトの「公開係」</h3>
+            <ul>
+              <li>GitHubの内容を使ってサイトを公開する</li>
+              <li>公開URLを作る</li>
+              <li>更新を自動反映してくれる</li>
+              <li>世界中から速く表示しやすい</li>
+            </ul>
+            <p class="compare-note">たとえるなら、<strong>保管庫の内容をお客さんに見せるショーケース</strong>です。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">初心者向け</p>
+          <h2>よくある勘違い</h2>
+        </div>
+
+        <div class="qa-grid">
+          <article class="qa-card">
+            <h3>GitHubで完成デザインを見る？</h3>
+            <p><strong>基本は違います。</strong> GitHubはファイルを見る場所。実際の見た目はCloudflare Pagesの公開URLで確認します。</p>
+          </article>
+
+          <article class="qa-card">
+            <h3>Cloudflareに毎回アップロードする？</h3>
+            <p><strong>いいえ。</strong> GitHubを更新すれば、Cloudflareが自動で新しい内容を取り込みます。</p>
+          </article>
+
+          <article class="qa-card">
+            <h3>Commitって何？</h3>
+            <p>「この修正を保存します」という記録です。保存だけでなく、あとから変更履歴を確認できます。</p>
+          </article>
+
+          <article class="qa-card">
+            <h3>公開URLはどこで見る？</h3>
+            <p>Cloudflare Pagesのプロジェクト画面です。最初は <code>xxxxx.pages.dev</code> のようなURLが発行されます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">FAQ</p>
+          <h2>よくある質問</h2>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>Q. サイトのデザインはどこで確認するの？</summary>
+            <p>A. GitHubではなく、Cloudflare Pagesの公開URLで確認します。</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Q. GitHubのリポジトリを非公開にしてもサイト公開できる？</summary>
+            <p>A. はい。コードは非公開のまま、サイトだけ公開する運用ができます。</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Q. ファイルを間違えても大丈夫？</summary>
+            <p>A. GitHubには履歴が残るので、前の状態に戻しやすいです。</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Q. HTML / CSS / JSって何？</summary>
+            <p>
+              A. <strong>HTML＝中身や骨組み</strong>、<strong>CSS＝色・文字・余白などの見た目</strong>、<strong>JS＝ボタンなどの動き</strong>です。
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">用語まとめ</p>
+          <h2>覚える言葉はこれだけ</h2>
+        </div>
+
+        <div class="glossary-grid">
+          <article class="glossary-card"><h3>Repository</h3><p>サイト一式を入れる箱。フォルダのようなもの。</p></article>
+          <article class="glossary-card"><h3>Commit</h3><p>修正内容を記録しながら保存すること。</p></article>
+          <article class="glossary-card"><h3>Branch</h3><p>本番とは別に、作業用の分かれ道を作る仕組み。</p></article>
+          <article class="glossary-card"><h3>Deploy</h3><p>サイトを公開できる状態に反映すること。</p></article>
+          <article class="glossary-card"><h3>Pages</h3><p>静的サイトを公開するCloudflareの機能。</p></article>
+          <article class="glossary-card"><h3>pages.dev</h3><p>Cloudflare Pagesで最初にもらえる公開URL。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container cta-inner">
+        <p class="cta-kicker">これだけ覚えればOK</p>
+        <h2>作る → GitHubに保存 → Cloudflareが公開</h2>
+        <a href="#overview" class="btn btn-light">もう一度図を見る</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>GitHub → Cloudflare のしくみ / Beginner Guide</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
